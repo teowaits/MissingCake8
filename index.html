@@ -1,0 +1,983 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CASE #008 — The Missing Birthday Cake</title>
+<meta name="description" content="Elena & Lucia turn 8. A birthday detective party — Saturday June 20th, Mount Prospect Park, Brooklyn." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Bree+Serif&family=Caveat:wght@500;700&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper:        #ece1c4;
+    --paper-deep:   #d9ca9f;
+    --paper-shadow: #b9a777;
+    --ink:          #1d1a16;
+    --ink-soft:     #3b342a;
+    --ink-faded:    #6a5d49;
+    --evidence:     #b9322a;   /* stamp red */
+    --evidence-deep:#7a1f1a;
+    --tape:         #f1c84a;   /* caution / cake yellow */
+    --tape-deep:    #b88f1a;
+    --string:       #c84033;   /* red string */
+    --ok:           #2b6a4a;
+
+    --serif:   'Bree Serif', Georgia, serif;
+    --type:    'Special Elite', 'Courier New', monospace;
+    --hand:    'Caveat', 'Comic Sans MS', cursive;
+    --display: 'Oswald', 'Impact', sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--type);
+    color: var(--ink);
+    background: var(--paper);
+    /* paper grain + faint horizontal rule */
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(0,0,0,0.06), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(0,0,0,0.05), transparent 45%),
+      repeating-linear-gradient(0deg,
+        rgba(0,0,0,0) 0px, rgba(0,0,0,0) 27px,
+        rgba(80,60,30,0.06) 28px, rgba(80,60,30,0.06) 29px),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.08  0 0 0 0 0.05  0 0 0 0.22 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55'/></svg>");
+    background-blend-mode: multiply, multiply, multiply, normal;
+    line-height: 1.55;
+    overflow-x: hidden;
+  }
+
+  a { color: var(--evidence-deep); text-decoration: underline wavy var(--evidence) 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--evidence); }
+
+  /* ============ LAYOUT ============ */
+
+  .wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 28px 22px 96px;
+  }
+
+  /* ============ HERO / CASE FILE HEADER ============ */
+
+  .file-tab {
+    display: inline-block;
+    margin-left: 36px;
+    padding: 6px 22px 8px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--display);
+    letter-spacing: 0.18em;
+    font-size: 13px;
+    text-transform: uppercase;
+    border-radius: 6px 6px 0 0;
+    box-shadow: 2px -1px 0 rgba(0,0,0,0.2);
+  }
+
+  .folder {
+    position: relative;
+    background: var(--paper-deep);
+    border: 2px solid var(--ink);
+    border-radius: 2px 14px 2px 2px;
+    box-shadow:
+      0 1px 0 rgba(0,0,0,0.2),
+      6px 8px 0 rgba(0,0,0,0.18),
+      12px 16px 28px rgba(0,0,0,0.18);
+    padding: 30px 34px 38px;
+  }
+
+  .folder::after {
+    /* paper poking out top corner */
+    content: "";
+    position: absolute;
+    top: -10px; right: 40px;
+    width: 60px; height: 14px;
+    background: var(--paper);
+    border: 1.5px solid var(--ink-soft);
+    border-bottom: none;
+    transform: rotate(2deg);
+  }
+
+  .case-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 14px;
+    border-bottom: 2px dashed var(--ink);
+    padding-bottom: 14px;
+    margin-bottom: 22px;
+  }
+  .case-meta .label {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+  }
+  .case-meta .val {
+    font-family: var(--display);
+    font-size: 20px;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-transform: uppercase;
+  }
+
+  h1.title {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(40px, 7vw, 78px);
+    line-height: 0.95;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    margin: 8px 0 4px;
+    color: var(--ink);
+  }
+  h1.title .crime {
+    display: block;
+    color: var(--evidence);
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.08);
+  }
+  h1.title .crime::before { content: "“"; }
+  h1.title .crime::after  { content: "”"; }
+
+  .subtitle {
+    font-family: var(--hand);
+    font-size: 30px;
+    color: var(--ink-soft);
+    transform: rotate(-1.5deg);
+    transform-origin: left;
+    margin: 14px 0 0 4px;
+  }
+
+  /* stamp */
+  .stamp {
+    position: absolute;
+    top: -22px; right: 32px;
+    transform: rotate(8deg);
+    z-index: 3;
+    background: rgba(236, 225, 196, 0.92);
+    color: var(--evidence);
+    border: 3px solid var(--evidence);
+    padding: 6px 14px 4px;
+    font-family: var(--display);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    font-size: 18px;
+    text-transform: uppercase;
+    opacity: 0.85;
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 2px rgba(185,50,42,0.25);
+    text-shadow: 1px 0 0 rgba(185,50,42,0.2);
+    pointer-events: none;
+  }
+  .stamp small {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    margin-top: 2px;
+    font-weight: 400;
+  }
+
+  /* ============ CARDS / SECTIONS ============ */
+
+  .card {
+    position: relative;
+    background: var(--paper);
+    border: 1.5px solid var(--ink-soft);
+    padding: 26px 28px 28px;
+    margin: 34px 0;
+    box-shadow: 4px 5px 0 rgba(0,0,0,0.10), 10px 14px 24px rgba(0,0,0,0.13);
+  }
+  .card.tilt-l { transform: rotate(-0.6deg); }
+  .card.tilt-r { transform: rotate(0.5deg); }
+
+  .card .pin {
+    position: absolute;
+    top: -10px; left: 50%;
+    width: 22px; height: 22px;
+    background: radial-gradient(circle at 35% 30%, #ff6b5b, var(--evidence-deep) 70%);
+    border-radius: 50%;
+    box-shadow: 1px 2px 3px rgba(0,0,0,0.4), inset -2px -3px 4px rgba(0,0,0,0.4), inset 2px 2px 3px rgba(255,255,255,0.4);
+    transform: translateX(-50%);
+  }
+  .card .pin.left   { left: 32px; }
+  .card .pin.right  { left: auto; right: 32px; }
+  .card .pin.yellow { background: radial-gradient(circle at 35% 30%, #ffe080, var(--tape-deep) 70%); }
+
+  /* tape */
+  .tape {
+    position: absolute;
+    background: rgba(241, 200, 74, 0.78);
+    border-left: 1px dashed rgba(0,0,0,0.18);
+    border-right: 1px dashed rgba(0,0,0,0.18);
+    width: 110px; height: 28px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    pointer-events: none;
+  }
+  .tape.tl { top: -12px; left: 18px; transform: rotate(-6deg); }
+  .tape.tr { top: -10px; right: 22px; transform: rotate(7deg); }
+
+  h2.section {
+    font-family: var(--display);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 26px;
+    margin: 0 0 4px;
+    color: var(--ink);
+  }
+  h2.section .num {
+    color: var(--evidence);
+    font-family: var(--type);
+    font-size: 18px;
+    letter-spacing: 0.18em;
+    margin-right: 10px;
+    vertical-align: 1px;
+  }
+  .section-sub {
+    font-family: var(--hand);
+    font-size: 22px;
+    color: var(--ink-faded);
+    margin: 0 0 18px;
+  }
+
+  /* ============ THE FACTS GRID ============ */
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-top: 10px;
+  }
+  .fact {
+    border: 1.5px dashed var(--ink-faded);
+    padding: 14px 16px 16px;
+    background: rgba(255,255,255,0.25);
+    position: relative;
+  }
+  .fact .k {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin-bottom: 6px;
+  }
+  .fact .v {
+    font-family: var(--display);
+    font-size: 22px;
+    line-height: 1.1;
+    color: var(--ink);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  .fact .note {
+    font-family: var(--hand);
+    font-size: 19px;
+    color: var(--evidence-deep);
+    margin-top: 6px;
+    line-height: 1.05;
+  }
+
+  /* ============ THE SUSPECTS / DETECTIVES ============ */
+
+  .detectives {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  @media (max-width: 620px) { .detectives { grid-template-columns: 1fr; } }
+
+  .dossier {
+    border: 1.5px solid var(--ink);
+    background: rgba(255,255,255,0.35);
+    padding: 16px 16px 18px;
+    position: relative;
+  }
+  .dossier .id {
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    color: var(--ink-faded);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .dossier .name {
+    font-family: var(--display);
+    font-size: 30px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .dossier .role {
+    font-family: var(--hand);
+    font-size: 22px;
+    color: var(--evidence);
+    margin: 2px 0 10px;
+  }
+  .dossier .photo {
+    aspect-ratio: 1 / 1;
+    background:
+      repeating-linear-gradient(135deg,
+        rgba(0,0,0,0.08) 0 8px, transparent 8px 18px),
+      var(--paper-deep);
+    border: 1px solid var(--ink-faded);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-faded);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+  .dossier .photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.35) sepia(0.18) contrast(1.05);
+    display: block;
+  }
+  .dossier .photo::after {
+    /* photo-corner tabs to feel like a clipped mugshot */
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(135deg, rgba(236,225,196,0.85) 0 10px, transparent 10px) top left / 16px 16px no-repeat,
+      linear-gradient(225deg, rgba(236,225,196,0.85) 0 10px, transparent 10px) top right / 16px 16px no-repeat,
+      linear-gradient(45deg,  rgba(236,225,196,0.85) 0 10px, transparent 10px) bottom left / 16px 16px no-repeat,
+      linear-gradient(-45deg, rgba(236,225,196,0.85) 0 10px, transparent 10px) bottom right / 16px 16px no-repeat;
+    pointer-events: none;
+  }
+  .dossier ul {
+    list-style: none;
+    padding: 0; margin: 0;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .dossier ul li { padding: 2px 0; }
+  .dossier ul li::before { content: "▸ "; color: var(--evidence); }
+
+  /* ============ EVIDENCE LIST ============ */
+
+  .evidence-list {
+    list-style: none;
+    padding: 0; margin: 12px 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .evidence-list li {
+    background: rgba(255,255,255,0.3);
+    border: 1px solid var(--ink-faded);
+    padding: 12px 14px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .evidence-list .tag {
+    flex: 0 0 auto;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--evidence);
+    color: var(--paper);
+    font-family: var(--display);
+    font-size: 16px;
+    display: grid; place-items: center;
+    box-shadow: 1px 2px 0 rgba(0,0,0,0.2);
+  }
+  .evidence-list .lbl { font-family: var(--display); text-transform: uppercase; font-size: 16px; letter-spacing: 0.04em; }
+  .evidence-list .desc { font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+
+  /* ============ MAP ============ */
+
+  .map-card { padding: 22px; }
+  .map-wrap {
+    position: relative;
+    border: 2px solid var(--ink);
+    box-shadow: inset 0 0 0 6px var(--paper-deep);
+    padding: 6px;
+    background: var(--paper-deep);
+  }
+  .map-wrap iframe {
+    display: block;
+    width: 100%;
+    height: 360px;
+    border: 1px solid var(--ink-soft);
+    filter: sepia(0.18) saturate(0.85) contrast(1.02);
+  }
+  .map-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    margin-top: 14px;
+    font-size: 13px;
+  }
+  .map-meta b { font-family: var(--display); letter-spacing: 0.06em; text-transform: uppercase; font-size: 12px; color: var(--ink-faded); }
+  .w3w {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--ink); color: var(--paper);
+    padding: 6px 12px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-family: var(--display);
+    letter-spacing: 0.04em;
+    font-size: 14px;
+  }
+  .w3w:hover { background: var(--evidence); color: var(--paper); }
+  .w3w .slash { color: var(--evidence); font-weight: 700; }
+
+  /* ============ RULES / NOTES ============ */
+
+  .rules {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 620px) { .rules { grid-template-columns: 1fr; } }
+  .rules .rule {
+    border-left: 4px solid var(--evidence);
+    background: rgba(255,255,255,0.3);
+    padding: 12px 14px;
+  }
+  .rules .rule b {
+    font-family: var(--display);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    display: block;
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+  .rules .rule p { margin: 0; font-size: 14px; color: var(--ink-soft); }
+
+  /* ============ RSVP ============ */
+
+  .rsvp-card { background: var(--paper); padding: 28px; }
+  .rsvp-card h2.section { color: var(--evidence-deep); }
+
+  form.rsvp {
+    display: grid;
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 620px) { .row { grid-template-columns: 1fr; } }
+
+  label.field {
+    display: block;
+    font-family: var(--type);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+  }
+  label.field .req { color: var(--evidence); }
+
+  input[type="text"], input[type="email"], input[type="number"], select, textarea {
+    width: 100%;
+    margin-top: 6px;
+    font-family: var(--type);
+    font-size: 16px;
+    color: var(--ink);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--ink);
+    padding: 8px 2px;
+    outline: none;
+    border-radius: 0;
+  }
+  textarea {
+    min-height: 90px;
+    border: 1.5px dashed var(--ink-faded);
+    padding: 10px;
+    background: rgba(255,255,255,0.3);
+    resize: vertical;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--evidence);
+    background: rgba(241, 200, 74, 0.15);
+  }
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%),
+                      linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+    background-position: calc(100% - 18px) 18px, calc(100% - 12px) 18px;
+    background-size: 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 28px;
+  }
+
+  .radio-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .radio-group label {
+    flex: 1 1 0;
+    min-width: 130px;
+    border: 1.5px solid var(--ink);
+    padding: 10px 12px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.3);
+    font-family: var(--display);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 14px;
+    text-align: center;
+    user-select: none;
+    transition: all 0.15s;
+  }
+  .radio-group input { position: absolute; opacity: 0; pointer-events: none; }
+  .radio-group label:hover { background: rgba(241, 200, 74, 0.3); }
+  .radio-group input:checked + span { }
+  .radio-group label:has(input:checked) {
+    background: var(--ink);
+    color: var(--paper);
+    box-shadow: 2px 2px 0 var(--evidence);
+  }
+
+  button.submit {
+    margin-top: 10px;
+    justify-self: start;
+    font-family: var(--display);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 18px;
+    background: var(--evidence);
+    color: var(--paper);
+    border: 2px solid var(--ink);
+    padding: 14px 28px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--ink);
+    transition: transform 0.08s, box-shadow 0.08s;
+  }
+  button.submit:hover { background: var(--evidence-deep); }
+  button.submit:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+  button.submit[disabled] { opacity: 0.6; cursor: wait; }
+
+  .success, .error {
+    display: none;
+    margin-top: 14px;
+    padding: 16px 18px;
+    border: 2px solid var(--ok);
+    background: rgba(43, 106, 74, 0.1);
+    font-family: var(--type);
+  }
+  .success.show, .error.show { display: block; }
+  .error { border-color: var(--evidence); background: rgba(185, 50, 42, 0.1); color: var(--evidence-deep); }
+  .success b { font-family: var(--display); text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-bottom: 4px; color: var(--ok); }
+
+  .config-warning {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--ink-faded);
+    font-style: italic;
+  }
+
+  /* ============ FINGERPRINTS / DECOR ============ */
+
+  .fingerprint {
+    position: absolute;
+    width: 60px; height: 78px;
+    opacity: 0.18;
+    pointer-events: none;
+  }
+  .fp1 { top: 40px; right: -20px; transform: rotate(18deg); }
+  .fp2 { bottom: -28px; left: -22px; transform: rotate(-22deg); }
+
+  /* ============ FOOTER ============ */
+
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    font-family: var(--hand);
+    font-size: 22px;
+    color: var(--ink-faded);
+    transform: rotate(-1deg);
+  }
+  footer .case-closed {
+    display: inline-block;
+    border: 3px solid var(--ok);
+    color: var(--ok);
+    font-family: var(--display);
+    text-transform: uppercase;
+    padding: 4px 14px 2px;
+    letter-spacing: 0.18em;
+    font-size: 14px;
+    transform: rotate(-3deg);
+    opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <span class="file-tab">Case File · Confidential</span>
+
+  <section class="folder">
+    <div class="stamp">URGENT<small>do not ignore</small></div>
+
+    <div class="case-meta">
+      <div>
+        <div class="label">Case No.</div>
+        <div class="val">#008 — Twin Detectives Division</div>
+      </div>
+      <div>
+        <div class="label">Filed</div>
+        <div class="val">Sat · June 20 · 2026</div>
+      </div>
+      <div>
+        <div class="label">Status</div>
+        <div class="val" style="color: var(--evidence);">Unsolved</div>
+      </div>
+    </div>
+
+    <h1 class="title">
+      The Case Of The
+      <span class="crime">Missing Birthday Cake</span>
+    </h1>
+    <div class="subtitle">— and we need YOUR help to crack it.</div>
+
+    <p style="font-size: 16px; margin-top: 22px; max-width: 64ch;">
+      Two prime suspects — Elena &amp; Lucia — are turning <b>EIGHT</b>.
+      A cake was last seen near Mount Prospect Park. It is no longer where it should be.
+      We are deputizing a small crew of junior detectives to follow the clues,
+      interview witnesses, and (with any luck) recover the evidence before it melts.
+    </p>
+
+    <svg class="fingerprint fp1" viewBox="0 0 60 78" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g fill="none" stroke="#1d1a16" stroke-width="1.2">
+        <ellipse cx="30" cy="39" rx="22" ry="32"/>
+        <ellipse cx="30" cy="39" rx="17" ry="26"/>
+        <ellipse cx="30" cy="39" rx="12" ry="20"/>
+        <ellipse cx="30" cy="39" rx="7"  ry="14"/>
+        <path d="M30 25 Q34 39 30 53"/>
+      </g>
+    </svg>
+  </section>
+
+
+  <!-- ============ THE FACTS ============ -->
+
+  <section class="card tilt-l">
+    <span class="pin"></span>
+    <h2 class="section"><span class="num">FILE 01</span> The Facts</h2>
+    <p class="section-sub">everything we know so far…</p>
+
+    <div class="facts">
+      <div class="fact">
+        <div class="k">Who</div>
+        <div class="v">Elena &amp; Lucia</div>
+        <div class="note">turning 8 — twin trouble!</div>
+      </div>
+      <div class="fact">
+        <div class="k">When</div>
+        <div class="v">Sat · Jun 20</div>
+        <div class="note">time TBD — stay tuned</div>
+      </div>
+      <div class="fact">
+        <div class="k">Where</div>
+        <div class="v">Mt. Prospect Park</div>
+        <div class="note">Brooklyn, NY — see map ↓</div>
+      </div>
+      <div class="fact">
+        <div class="k">Mission</div>
+        <div class="v">Find the Cake</div>
+        <div class="note">treasure hunt + snacks</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ DOSSIERS ============ -->
+
+  <section class="card tilt-r">
+    <span class="tape tl"></span>
+    <h2 class="section"><span class="num">FILE 02</span> The Birthday Suspects</h2>
+    <p class="section-sub">approach with caution — they're fast.</p>
+
+    <div class="detectives">
+      <div class="dossier">
+        <div class="id">Suspect A · 0008</div>
+        <div class="name">Elena</div>
+        <div class="role">Prime suspect</div>
+        <div class="photo"><img src="elena.jpg" alt="Elena — chocolate evidence around her mouth"></div>
+        <ul>
+          <li>Age: 8 (on July 1)</li>
+          <li>Last seen: with chocolate on her face</li>
+          <li>Motive: birthday</li>
+        </ul>
+      </div>
+      <div class="dossier">
+        <div class="id">Suspect B · 0008</div>
+        <div class="name">Lucia</div>
+        <div class="role">Prime suspect</div>
+        <div class="photo"><img src="lucia.jpg" alt="Lucia — holding a mango gelato cone"></div>
+        <ul>
+          <li>Age: 8 (on July 1)</li>
+          <li>Last seen: fleeing with a mango cone</li>
+          <li>Motive: birthday</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ THE PLAN / EVIDENCE ============ -->
+
+  <section class="card tilt-l">
+    <span class="pin yellow left"></span>
+    <span class="pin yellow right"></span>
+    <h2 class="section"><span class="num">FILE 03</span> The Plan</h2>
+    <p class="section-sub">your training schedule, detective.</p>
+
+    <ul class="evidence-list">
+      <li><span class="tag">A</span><div><div class="lbl">Briefing</div><div class="desc">Pick up your case file when you arrive.</div></div></li>
+      <li><span class="tag">B</span><div><div class="lbl">Treasure Hunt</div><div class="desc">Follow the clues across the park.</div></div></li>
+      <li><span class="tag">C</span><div><div class="lbl">Snacks &amp; Play</div><div class="desc">Food for detectives. Drinks for adults.</div></div></li>
+      <li><span class="tag">D</span><div><div class="lbl">Cake Recovery</div><div class="desc">If we solve it. (We will solve it.)</div></div></li>
+    </ul>
+  </section>
+
+
+  <!-- ============ MAP ============ -->
+
+  <section class="card map-card tilt-r">
+    <span class="tape tr"></span>
+    <h2 class="section"><span class="num">FILE 04</span> Scene of the Crime</h2>
+    <p class="section-sub">x marks the spot…</p>
+
+    <div class="map-wrap">
+      <iframe
+        src="https://www.openstreetmap.org/export/embed.html?bbox=-73.9710%2C40.6685%2C-73.9615%2C40.6740&layer=mapnik&marker=40.671127%2C-73.966172"
+        loading="lazy"
+        title="Map of Mount Prospect Park, Brooklyn">
+      </iframe>
+    </div>
+
+    <div class="map-meta">
+      <div><b>Location</b><br>Mount Prospect Park · Brooklyn, NY</div>
+      <div><b>3-word address</b><br>
+        <a class="w3w" href="https://what3words.com/snows.grants.member" target="_blank" rel="noopener">
+          ///<span><span class="slash">snows</span>.grants.member</span>
+        </a>
+      </div>
+      <div><b>Open in Maps</b><br>
+        <a href="https://www.openstreetmap.org/?mlat=40.671127&mlon=-73.966172#map=17/40.671127/-73.966172" target="_blank" rel="noopener">OpenStreetMap ↗</a><br>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=40.671127,-73.966172" target="_blank" rel="noopener">Directions (Google) ↗</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ FINE PRINT ============ -->
+
+  <section class="card tilt-l">
+    <span class="pin"></span>
+    <h2 class="section"><span class="num">FILE 05</span> Detective's Notes</h2>
+    <p class="section-sub">a few important rules of engagement.</p>
+
+    <div class="rules">
+      <div class="rule">
+        <b>Parents</b>
+        <p>You're welcome to stay — we'll have grown-up beverages on hand. Drop-off is also totally fine. Your call.</p>
+      </div>
+      <div class="rule">
+        <b>No gifts, please</b>
+        <p>Honestly. Your presence is the present. (Cards &amp; drawings will be very enthusiastically received.)</p>
+      </div>
+      <div class="rule">
+        <b>Food</b>
+        <p>We'll have snacks and drinks covered. Let us know in the RSVP if there are allergies.</p>
+      </div>
+      <div class="rule">
+        <b>Weather</b>
+        <p>This is an outdoor caper. If the weather refuses to cooperate, we'll send updates the day before.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ RSVP ============ -->
+
+  <section class="card rsvp-card" id="rsvp">
+    <span class="tape tl"></span>
+    <span class="tape tr"></span>
+    <h2 class="section"><span class="num">FILE 06</span> Apply To Join The Investigation</h2>
+    <p class="section-sub">RSVP — please reply by <b>June 13</b>.</p>
+
+    <form class="rsvp" id="rsvpForm" novalidate>
+
+      <div class="row">
+        <div>
+          <label class="field" for="kidName">Detective's Name <span class="req">*</span></label>
+          <input id="kidName" name="kid_name" type="text" required placeholder="e.g. Sam (age 7)">
+        </div>
+        <div>
+          <label class="field" for="parentName">Grown-Up's Name <span class="req">*</span></label>
+          <input id="parentName" name="parent_name" type="text" required placeholder="e.g. Sam's mom — Alex">
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label class="field" for="email">Email <span class="req">*</span></label>
+          <input id="email" name="email" type="email" required placeholder="so we can send updates">
+        </div>
+        <div>
+          <label class="field" for="phone">Phone (optional)</label>
+          <input id="phone" name="phone" type="text" placeholder="in case we need to reach you on the day">
+        </div>
+      </div>
+
+      <div>
+        <label class="field">Coming?  <span class="req">*</span></label>
+        <div class="radio-group" role="radiogroup" aria-label="attending">
+          <label><input type="radio" name="attending" value="yes" required><span>✓ On the case</span></label>
+          <label><input type="radio" name="attending" value="maybe"><span>? Pending leads</span></label>
+          <label><input type="radio" name="attending" value="no"><span>✗ Can't make it</span></label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label class="field" for="kids"># of kid-detectives <span class="req">*</span></label>
+          <select id="kids" name="num_kids" required>
+            <option value="">— choose —</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5+">5 or more</option>
+          </select>
+        </div>
+        <div>
+          <label class="field" for="adults"># of grown-ups staying <span class="req">*</span></label>
+          <select id="adults" name="num_adults" required>
+            <option value="">— choose —</option>
+            <option value="0">0 — drop-off</option>
+            <option value="1">1 grown-up</option>
+            <option value="2">2 grown-ups</option>
+            <option value="3">3 grown-ups</option>
+            <option value="4+">4 or more</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="field" for="notes">Allergies, notes, or tips for the investigation</label>
+        <textarea id="notes" name="notes" placeholder="e.g. 'allergic to peanuts', 'will arrive a bit late', 'has top-secret intel about the cake'…"></textarea>
+      </div>
+
+      <button class="submit" type="submit" id="submitBtn">▶ Submit Application</button>
+
+      <div class="success" id="successBox">
+        <b>Application received.</b>
+        Thanks, detective. We'll be in touch with the briefing details closer to the date.
+      </div>
+      <div class="error" id="errorBox">
+        Something went wrong submitting — please try again, or email us directly.
+      </div>
+
+      <p class="config-warning" id="configNote"></p>
+    </form>
+  </section>
+
+
+  <footer>
+    <div class="case-closed">Case File · v.1</div>
+    <div style="margin-top: 10px;">made with 🔎 for Elena &amp; Lucia · age 8</div>
+  </footer>
+
+</div>
+
+
+<script>
+  // ============================================================
+  //  RSVP submission
+  // ============================================================
+  //  This page is hosted on GitHub Pages (static) — it can't write
+  //  files on its own. Pick ONE of the options below:
+  //
+  //  (1) FORMSPREE (default, easiest)
+  //      Sign up free at https://formspree.io
+  //      Create a form, copy the endpoint, paste below.
+  //      Submissions land in your email + dashboard, exportable CSV.
+  //
+  //  (2) GOOGLE FORMS
+  //      Use a Google Form's `formResponse` URL with entry IDs.
+  //      Replace `submitToFormspree` with `submitToGoogleForms`.
+  //
+  //  (3) GITHUB ISSUES (no third party)
+  //      Each RSVP becomes an issue in a private repo via a
+  //      GitHub Action triggered through repository_dispatch
+  //      (requires a tiny serverless proxy). See README.md.
+  // ============================================================
+
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/REPLACE_ME";   // <-- PASTE YOURS
+
+  const form        = document.getElementById('rsvpForm');
+  const submitBtn   = document.getElementById('submitBtn');
+  const successBox  = document.getElementById('successBox');
+  const errorBox    = document.getElementById('errorBox');
+  const configNote  = document.getElementById('configNote');
+
+  if (FORMSPREE_ENDPOINT.includes('REPLACE_ME')) {
+    configNote.textContent =
+      'Heads-up (visible only until you swap the endpoint): the RSVP form is not yet connected. ' +
+      'Edit index.html → FORMSPREE_ENDPOINT — see README.md for details.';
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    successBox.classList.remove('show');
+    errorBox.classList.remove('show');
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = '… submitting …';
+
+    const data = new FormData(form);
+    // helpful subject line in your inbox
+    data.append('_subject', `RSVP: ${data.get('kid_name')} — ${data.get('attending')}`);
+
+    try {
+      if (FORMSPREE_ENDPOINT.includes('REPLACE_ME')) {
+        // demo mode — pretend it worked, but actually log to console
+        console.log('RSVP (demo — not sent):', Object.fromEntries(data.entries()));
+        await new Promise(r => setTimeout(r, 500));
+        successBox.classList.add('show');
+        successBox.querySelector('b').textContent = 'Demo mode — not sent.';
+        successBox.lastChild.textContent =
+          ' Connect Formspree to actually receive submissions. RSVP data was logged to the browser console.';
+      } else {
+        const res = await fetch(FORMSPREE_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: data,
+        });
+        if (!res.ok) throw new Error('Submit failed: ' + res.status);
+        successBox.classList.add('show');
+        form.reset();
+      }
+    } catch (err) {
+      console.error(err);
+      errorBox.classList.add('show');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = '▶ Submit Application';
+    }
+  });
+</script>
+
+</body>
+</html>
